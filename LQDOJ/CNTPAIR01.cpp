@@ -18,21 +18,19 @@ typedef priority_queue<ll,vector<ll>,greater<ll> > heap_min;
 const ll maxN = 1e6+5;
 const ll inf = 1e10;
 const ll mod = 1e9+7;
-string s;
-ll tmp;
+ll x, b[100005], n,res;
 int main()
 {
     ios_base::sync_with_stdio(0);
     //freopen("input.txt","r", stdin);
-	cin>>s;
-	FOR(i,0,s.size()-1)
-	{
-		tmp = tmp * 10 + (s[i]-48);
-		if (tmp>='a' && tmp <='z') {
-			cout<<(char)tmp;
-			tmp = 0;
-		}
+	cin>>n;
+	FOR(i,1,n){
+		cin>>x;
+		b[x]++;
 	}
+	FOR(i,1,100000) res += b[i]*(b[i]-1)/2;
+	cout<<res;
+	return 0;
 }
-    
+
 
