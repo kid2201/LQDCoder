@@ -18,37 +18,56 @@ typedef priority_queue<ll,vector<ll>,greater<ll> > heap_min;
 const ll maxN = 1e6+5;
 const ll inf = 1e10;
 const ll mod = 1e9+7;
-ll n, a[100005],cnt0,cnt1,Res=0;
-map<ll,ll> b;
+ll n,k,res,sum;
+ll a[100005], T[100005];
+map<ll,ll> d;
+
 void subtask1(){
-	FOR(i,1,n){
-		cnt0 = cnt1 = 0;
-		FOR(j,i,n) {
-			if (a[j]==1) cnt1++;
-			else cnt0++;
-			if (cnt1==cnt0) Res = max(Res,cnt0+cnt1);
+	FOR(i,1,n)
+		FOR(j,i,n)
+		{
+			sum = 0;
+			FOR(z,i,j) sum+=a[z];
+			if (sum==k) res++;
 		}
-	}
-	cout<<Res;
+	cout<<res;
 }
 
 void subtask2(){
+	FOR(i,1,n) T[i] = T[i-1] + a[i];
+	d[0] = 1;
 	FOR(i,1,n){
-		if (a[i]==1) cnt1++;
-		else cnt0++;
-		if (b[cnt0-cnt1]==0) b[cnt0-cnt1] = i;
-		else Res = max(Res, i-b[cnt0-cnt1]);
+		res += d[T[i] - k];
+		d[T[i]]++;
 	}
-	cout<<Res;
+	cout<<res;
 }
+
+void subtask1_inv(){
+		FOR(i,1,n)
+		{
+			sum=0;
+			FOR(j,i,n) {
+				sum+=a[j];
+				if (sum==k) {
+					res++;
+					FOR(x,i,j) cout<<a[x]<<" ";
+					cout<<endl;
+				}
+			}
+		}
+		
+		cout<<res;
+}
+
 int main()
 {
     ios_base::sync_with_stdio(0);
     //freopen("input.txt","r", stdin);
-	cin>>n;
+	cin>>n>>k;
 	FOR(i,1,n) cin>>a[i];
-	//subtask1();
-	subtask2();
+	if (n<=100) subtask1_inv();
+	else subtask2();
 	return 0;
 }
 

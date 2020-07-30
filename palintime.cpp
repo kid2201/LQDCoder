@@ -18,37 +18,28 @@ typedef priority_queue<ll,vector<ll>,greater<ll> > heap_min;
 const ll maxN = 1e6+5;
 const ll inf = 1e10;
 const ll mod = 1e9+7;
-ll n, a[100005],cnt0,cnt1,Res=0;
-map<ll,ll> b;
-void subtask1(){
-	FOR(i,1,n){
-		cnt0 = cnt1 = 0;
-		FOR(j,i,n) {
-			if (a[j]==1) cnt1++;
-			else cnt0++;
-			if (cnt1==cnt0) Res = max(Res,cnt0+cnt1);
-		}
-	}
-	cout<<Res;
-}
+string s;
 
-void subtask2(){
-	FOR(i,1,n){
-		if (a[i]==1) cnt1++;
-		else cnt0++;
-		if (b[cnt0-cnt1]==0) b[cnt0-cnt1] = i;
-		else Res = max(Res, i-b[cnt0-cnt1]);
-	}
-	cout<<Res;
-}
 int main()
 {
     ios_base::sync_with_stdio(0);
     //freopen("input.txt","r", stdin);
-	cin>>n;
-	FOR(i,1,n) cin>>a[i];
-	//subtask1();
-	subtask2();
+	cin>>s;
+	gio = (s[0]-48)*10 + s[1];
+	phut = 	(s[3]-48)*10 + s[4];
+	tmp = phut%10 * 10 + phut / 10;
+	a = gio / 10;
+	b = gio % 10;
+	if (gio < phut) {
+		if (gio==23 && phut > 32) {
+			cout<<"00:00";
+			return 0;
+		}
+		else 
+		if (phut > tmp){
+			
+		}
+	}
 	return 0;
 }
 

@@ -18,37 +18,24 @@ typedef priority_queue<ll,vector<ll>,greater<ll> > heap_min;
 const ll maxN = 1e6+5;
 const ll inf = 1e10;
 const ll mod = 1e9+7;
-ll n, a[100005],cnt0,cnt1,Res=0;
-map<ll,ll> b;
-void subtask1(){
-	FOR(i,1,n){
-		cnt0 = cnt1 = 0;
-		FOR(j,i,n) {
-			if (a[j]==1) cnt1++;
-			else cnt0++;
-			if (cnt1==cnt0) Res = max(Res,cnt0+cnt1);
-		}
-	}
-	cout<<Res;
-}
-
-void subtask2(){
-	FOR(i,1,n){
-		if (a[i]==1) cnt1++;
-		else cnt0++;
-		if (b[cnt0-cnt1]==0) b[cnt0-cnt1] = i;
-		else Res = max(Res, i-b[cnt0-cnt1]);
-	}
-	cout<<Res;
-}
+int T[maxN];
+ll a,b,n,res;
 int main()
 {
     ios_base::sync_with_stdio(0);
     //freopen("input.txt","r", stdin);
+    ll k = sqrt(maxN-5);
+    T[0] = 1; T[1] = 1;
+	FOR(i,2,k)
+		if (T[i]==0)
+		for(ll j = i*i; j <= 1e6; j+=i) T[j] = 1;
 	cin>>n;
-	FOR(i,1,n) cin>>a[i];
-	//subtask1();
-	subtask2();
+	FOR(i,2,n/2){
+		a = i;
+		b = n - a;
+		if (T[a]==0 && T[b]==0) res++;
+	} 
+	cout<<res;
 	return 0;
 }
 

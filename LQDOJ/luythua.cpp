@@ -18,35 +18,67 @@ typedef priority_queue<ll,vector<ll>,greater<ll> > heap_min;
 const ll maxN = 1e6+5;
 const ll inf = 1e10;
 const ll mod = 1e9+7;
-ll n, a[100005],cnt0,cnt1,Res=0;
-map<ll,ll> b;
+ll x,y,z,n,luythua,somu;
+ll T[100005], sl, m;
+
 void subtask1(){
-	FOR(i,1,n){
-		cnt0 = cnt1 = 0;
-		FOR(j,i,n) {
-			if (a[j]==1) cnt1++;
-			else cnt0++;
-			if (cnt1==cnt0) Res = max(Res,cnt0+cnt1);
+	n = x*y*z;
+	FOR(i,2,n){
+		if (n%i==0){
+			luythua = i;
+			somu = 1;
+			
+			while (luythua < n){
+				luythua = luythua * i;
+				somu++;
+			}
+			if (luythua == n){
+				cout<<somu;
+				return;
+			}
+		}  
+	}
+}
+
+void ngto(ll m){
+	ll k = sqrt(m);
+	
+	FOR(i,2,k){
+		while (m%i==0){
+			sl++;
+			T[sl] = i;
+			m = m / i;
 		}
 	}
-	cout<<Res;
+	if (m > 1) {
+		sl++;
+		T[sl] = m;
+	}
 }
 
 void subtask2(){
-	FOR(i,1,n){
-		if (a[i]==1) cnt1++;
-		else cnt0++;
-		if (b[cnt0-cnt1]==0) b[cnt0-cnt1] = i;
-		else Res = max(Res, i-b[cnt0-cnt1]);
+	ngto(x);
+	ngto(y);
+	ngto(z);
+	sort(T+1,T+1+sl);
+	ll res=0, cnt=1;
+	//FOR(i,1,sl) cout<<T[i]<<" ";
+	FOR(i,1,sl-1){
+		if (T[i]==T[i+1]) cnt++;
+		else{
+			res = __gcd(res,cnt);
+			cnt = 1;
+		}
 	}
-	cout<<Res;
+	res = __gcd(res,cnt);
+	cout<<res; 
 }
+
 int main()
 {
     ios_base::sync_with_stdio(0);
     //freopen("input.txt","r", stdin);
-	cin>>n;
-	FOR(i,1,n) cin>>a[i];
+	cin>>x>>y>>z;
 	//subtask1();
 	subtask2();
 	return 0;

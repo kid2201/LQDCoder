@@ -18,37 +18,40 @@ typedef priority_queue<ll,vector<ll>,greater<ll> > heap_min;
 const ll maxN = 1e6+5;
 const ll inf = 1e10;
 const ll mod = 1e9+7;
-ll n, a[100005],cnt0,cnt1,Res=0;
-map<ll,ll> b;
-void subtask1(){
-	FOR(i,1,n){
-		cnt0 = cnt1 = 0;
-		FOR(j,i,n) {
-			if (a[j]==1) cnt1++;
-			else cnt0++;
-			if (cnt1==cnt0) Res = max(Res,cnt0+cnt1);
-		}
-	}
-	cout<<Res;
+ll q,l,r,t,k,somu;
+
+ll mu (ll n){
+	ll s = 1;
+	FOR(j,1,n) s = s * 10;
+	return s;
 }
 
-void subtask2(){
-	FOR(i,1,n){
-		if (a[i]==1) cnt1++;
-		else cnt0++;
-		if (b[cnt0-cnt1]==0) b[cnt0-cnt1] = i;
-		else Res = max(Res, i-b[cnt0-cnt1]);
-	}
-	cout<<Res;
+ll scs (ll n){
+	return n/somu-n/(somu*10);
 }
 int main()
 {
     ios_base::sync_with_stdio(0);
     //freopen("input.txt","r", stdin);
-	cin>>n;
-	FOR(i,1,n) cin>>a[i];
-	//subtask1();
-	subtask2();
+	cin>>q;
+	FOR(i,1,q){
+		cin>>l>>r>>t>>k;
+		if (k%t!=0) {
+			cout<<0;
+		}
+		else
+		{
+			k = k / t;
+			if (k > 17 ) cout<<0;
+			else
+			{
+				somu = mu(k);
+				if ((l==r) && (r % somu == 0) && (r % somu*10 != 0)) cout<<1;
+				else cout<<(scs(r) - scs(l-1));
+			}
+		}
+		cout<<endl;
+	}	
 	return 0;
 }
 
